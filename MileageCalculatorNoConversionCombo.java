@@ -6,6 +6,10 @@
  * Last Modified: Apr 15, 2019
  * Description:  
  */
+
+// Raymond McNaughton CSCI-1302-C
+// Updated version of MileageCalculatorNoConversion.java now with a ComboBox
+
 package fxPackage;
 
 import java.util.ArrayList;
@@ -18,9 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -111,17 +113,32 @@ public class MileageCalculatorNoConversionCombo extends Application {
 	 * converting when the conversion is not necessary
 	 */
     private void changeLabels() {
+    	double distance;
+    	double capacity;
+    	
     	// distinguish between L/100KM and MPG
     	if (cmb.getValue().equals(altResult)) {
         	// update labels
         	lblCapacity.setText(altCapacity);
         	lblDistance.setText(altMileage);
-        	lblResult.setText(altResult);       	
+        	lblResult.setText(altResult);
+        	//convert values
+        	distance = Double.parseDouble(tfDistance.getText());
+        	tfDistance.setText(String.format("%.2f", distance*1.609344));
+        	capacity = Double.parseDouble(tfCapacity.getText());
+        	tfCapacity.setText(String.format("%.2f", capacity*3.7854));
+        	calcMileage();
          } else if(cmb.getValue().equals(defaultResult)) {
         	// update labels
         	lblCapacity.setText(defaultCapacity);
         	lblDistance.setText(defaultMileage);
         	lblResult.setText(defaultResult);
+        	//convert values
+        	distance = Double.parseDouble(tfDistance.getText());
+        	tfDistance.setText(String.format("%.2f", distance*0.6213712));
+        	capacity = Double.parseDouble(tfCapacity.getText());
+        	tfCapacity.setText(String.format("%.2f", capacity*0.2641729));
+        	calcMileage();
         }
     }
 
